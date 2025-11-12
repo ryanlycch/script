@@ -1,14 +1,17 @@
 #!/bin/sh
 #Update Mbedtls
 cd mbedtls
-make clean
 git fetch
 if [ "$(uname -v | grep -o qvqnetwork)" = "qvqnetwork" ]; then
   git reset --hard v4.0.0
 else
   git reset --hard origin/mbedtls-3.6
 fi
-git submodule update
+git submodule update --init
+mkdir build
+cd build
 make CFLAGS=-fPIC
 make DESTDIR=$WORKDIRECTORY install
+cd ..
+rm -rf build
 cd ..

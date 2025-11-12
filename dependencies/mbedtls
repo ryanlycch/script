@@ -8,6 +8,10 @@ else
 fi
 
 cd mbedtls
+mkdir build
+cd build
 make CFLAGS=-fPIC
 make DESTDIR=$WORKDIRECTORY install
+cd ..
+rm -rf build
 cd ..
