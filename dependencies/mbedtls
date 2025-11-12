@@ -1,7 +1,12 @@
 #!/bin/sh
 echo "$MSG_MBEDTLS"
 
-git clone --recursive https://github.com/ARMmbed/mbedtls.git -b mbedtls-3.6
+if [ "$(uname -v | grep -o qvqnetwork)" = "qvqnetwork" ]; then
+  git clone --recursive https://github.com/ARMmbed/mbedtls.git -b v4.0.0
+else
+  git clone --recursive https://github.com/ARMmbed/mbedtls.git -b mbedtls-3.6
+fi
+
 cd mbedtls
 make CFLAGS=-fPIC
 make DESTDIR=$WORKDIRECTORY install
